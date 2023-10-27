@@ -24,52 +24,50 @@ http://www.youtube.com/watch?v=hwdVpKiJzac
 
 *********************/
 
-%btn {
-  display: inline-block;
-  position: relative;
-  font-family: $sans-serif;
-  text-decoration: none;
-  color: $white;
-  font-size: 0.9em;
-  font-size: 34px;
-  line-height: 34px;
-  font-weight: normal;
-  padding: 0 24px;
-  border-radius: 4px;
-  border: 0;
-  cursor: pointer;
-  @include transition(background-color 0.14s ease-in-out);
+.btn-clean {
+	text-decoration:none;
+	&:hover {
+		color:$white;
+		text-decoration:none;
+		outline:none; 
+	}
+	&:focus {
+		outline:none;
+	}
+}
 
-  // hovering on the btn
-  &:hover, &:focus {
-    color: $white;
-    text-decoration: none;
-    outline: none;
-  } // end hover
-
-  // clicking on the button
-  &:active {
-    top: 1px; // adds a tiny hop to the click
-  } // end active
-
+.btn, .btn:visited, .btn:focus {
+	@extend .btn-clean;
+	display:inline-block;
+	position:relative;
+	font-family:$buttonfont;
+	text-transform:uppercase;
+	text-align:center;
+	color:$white;
+	background:url(../images/btn-decor-left.svg) no-repeat, url(../images/btn-decor-right.svg) no-repeat;
+	background-position:10px center, right 10px center;
+	background-size:auto 60%;
+	//background-color:$gs-graybrown;
+	font-size:1.2em;
+	height:2.5em;
+	line-height:2.5em;
+	//border-radius:1.25em;
+	font-weight:bold;
+	padding:0 1.75em;
+	border:0;
+	cursor:pointer;
+	outline:0;
+	@include transition(background-color $transition-speed ease-in-out);
+	&:hover {
+		color:$white;
+		//background-color:lighten($gs-graybrown, 10%);
+	}
 } // end .button
 
-/*
-An example button.
-You can use this example if you want. Just replace all the variables
-and it will create a button dependant on those variables.
-*/
-.blue-btn {
-  @extend %btn; // here we load the btn defaults
-  background-color: $blue;
-
-  &:hover,
-  &:focus {
-    background-color: darken($blue, 4%);
-  } // end hover
-
-  &:active {
-    background-color: darken($blue, 5%);
-  } // end active
-
-} // end blue button
+.btn-red, .btn-red:visited {
+	@extend .btn;
+	background-color:$red;
+	&:hover {
+		background-color:darken($red, 10%);
+	}
+}

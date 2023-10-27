@@ -75,8 +75,9 @@ if ( ! isset( $content_width ) ) {
 // Thumbnail sizes
 add_image_size( 'small', 600, 600 );
 add_image_size( 'extra-large', 1920, 1920 );
-add_image_size( 'movie-thumb', 400, 225, true );
+add_image_size( 'movie-thumb', 640, 360, true );
 add_image_size( 'og', 1200, 1200, true );
+add_image_size( 'mobile-screen', 1000, 2000, true );
 
 /*
 to add more sizes, simply copy a line from above
@@ -106,6 +107,7 @@ function bones_custom_image_sizes( $sizes ) {
         'small' => __('Small'),
         'movie-thumb' => __('Movie (16:9) Thumbnail'),
         'og' => __('Open Graph'),
+        'mobile-screen' => __('Mobile Screen (1:2)'),
     ) );
 }
 
@@ -235,7 +237,7 @@ function bones_comments( $comment, $args, $depth ) {
 } // don't remove this bracket!
 
 function bones_fonts() {
-	wp_enqueue_style('googleFonts', '//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+	wp_enqueue_style('googleFonts', '//fonts.googleapis.com/https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 }
 add_action('wp_enqueue_scripts', 'bones_fonts');
 

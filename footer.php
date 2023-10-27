@@ -1,3 +1,6 @@
+<?php $CustomMainOptions = get_option('custom_main_options'); ?>
+			<?php include 'library/includes/video-player.php'; ?>
+			<div id="ov_container"></div>
 			<footer class="footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
 				<div id="inner-footer" class="wrap cf">
 					<div class="footer-logo">
@@ -20,11 +23,18 @@
 					</nav>
 					<p class="source-org copyright">&copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>.</p>
 					<div class="social">
-						<?php echo $testorama; ?>
-						<a class="svg-container" target="_blank" href=""><?php echoSVG('icInstagram'); ?></a>
-						<a class="svg-container" target="_blank" href=""><?php echoSVG('icTwitter'); ?></a>
-						<a class="svg-container" target="_blank" href=""><?php echoSVG('icYoutube'); ?></a>
-						<a class="svg-container" target="_blank" href=""><?php echoSVG('icFacebook'); ?></a>
+						<?php if ($CustomMainOptions && array_key_exists('url_instagram',$CustomMainOptions)) { ?>
+						<a class="svg-container" target="_blank" href="<?php echo $CustomMainOptions["url_instagram"]; ?>"><?php echoSVG('icInstagram'); ?></a>
+						<?php } ?>
+						<?php if ($CustomMainOptions && array_key_exists('url_twitter',$CustomMainOptions)) { ?>
+						<a class="svg-container" target="_blank" href="<?php echo $CustomMainOptions["url_twitter"]; ?>"><?php echoSVG('icTwitter'); ?></a>
+						<?php } ?>
+						<?php if ($CustomMainOptions && array_key_exists('url_youtube',$CustomMainOptions)) { ?>
+						<a class="svg-container" target="_blank" href="<?php echo $CustomMainOptions["url_youtube"]; ?>"><?php echoSVG('icYoutube'); ?></a>
+						<?php } ?>
+						<?php if ($CustomMainOptions && array_key_exists('url_facebook',$CustomMainOptions)) { ?>
+						<a class="svg-container" target="_blank" href="<?php echo $CustomMainOptions["url_facebook"]; ?>"><?php echoSVG('icFacebook'); ?></a>
+						<?php } ?>
 					</div>
 				</div>
 			</footer>

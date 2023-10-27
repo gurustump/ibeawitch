@@ -1,0 +1,24 @@
+/******************************************************************
+Stylesheet: Super Large Monitor Stylesheet
+
+******************************************************************/
+body.home {
+	.sizzle-vid-container {
+		.sizzle-logo {
+			height:50%;
+			top:47.5%;
+		}
+		.home-main-nav-container {
+			top:49%;
+			font-size:2em;
+		}
+	}
+}
+.ov {
+	&.vid-player-container {
+		.vid-player-wrapper {
+			height:1080px;
+			width:1920px;
+		}
+	}
+}

@@ -7,9 +7,6 @@
 <!--[if gt IE 8]><!--> <html <?php language_attributes(); ?> class="guru no-js theme-<?php echo $colorTheme; ?>"><!--<![endif]-->
 
 	<head>
-	<pre>
-	<?php print_r(is_array($CustomMainOptions)); ?>
-	</pre>
 		<?php if ($CustomMainOptions && array_key_exists('google_analytics_ID',$CustomMainOptions)) { ?>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $CustomMainOptions["google_analytics_ID"]; ?>"></script>

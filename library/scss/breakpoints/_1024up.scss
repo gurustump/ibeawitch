@@ -48,3 +48,14 @@ html {
 	margin-bottom:$gutter1024;
 	padding-bottom:$gutter1024;
 }
+
+/******************************************
+SPECIFIC PAGE STYLES
+******************************************/
+body.home {
+	.sizzle-vid-container {
+		.sizzle-logo {
+			padding-top:40%;
+		}
+	}
+}

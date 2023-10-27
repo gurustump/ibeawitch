@@ -104,6 +104,32 @@ function loadGravatars() {
 	}
 } // end function
 
+// get query string parameters
+// http://stackoverflow.com/questions/4656843/jquery-get-querystring-from-url
+function getQueryString() {
+	var vars = [], hash;
+	var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	for(var i = 0; i < hashes.length; i++)
+	{
+		hash = hashes[i].split('=');
+		// if the key in the query string has no value, set the value to true
+		if (hash[1] == undefined) {
+			hash[1] = true;
+		}
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
+
+// The YouTube Iframe API function has to be in the global scope, so it's out here outside of jQuery document.ready
+// Using jQuery deferred objects to be able to run jQuery when the function runs
+// http://stackoverflow.com/questions/17753525/onyoutubeiframeapiready-inside-jquerydocument-ready
+var YouTubeDeferred = jQuery.Deferred();
+window.onYouTubeIframeAPIReady = function(){
+	YouTubeDeferred.resolve(window.YT);
+}
+
 
 /*
  * Put all your regular jQuery in here.
@@ -116,10 +142,19 @@ jQuery(document).ready(function($) {
 	
 	// Check what page we're on
 	if (typeof isHome === "undefined") var isHome = body.hasClass('home');
+	if (typeof isVideo === "undefined") var isVideo = body.hasClass('video-gallery') || body.hasClass('single-show') || body.hasClass('home');
+	if (typeof isVideoGallery === "undefined") var isVideoGallery = body.hasClass('video-gallery');
+	if (typeof isSingleShow === "undefined") var isSingleShow = body.hasClass('single-show');
 	
 	win.resize(function() {
 		waitForFinalEvent( function() {
 			headerHeight();
+			if ($('.ov.active').length > 0) {
+				ovCheckHeight($('.ov.active'));
+			}
+			if (isHome) {
+				screenRatioCheck();
+			}
 		}, timeToWaitForLast, 'resizeWindow');
 	});
 	
@@ -140,6 +175,259 @@ jQuery(document).ready(function($) {
 			html.addClass('scrolled');
 		} else {
 			html.removeClass('scrolled');
+		}
+	}
+	
+	function screenRatioCheck() {
+		console.log('screenRatioCheck');
+		var winHeight = $(window).height();
+		var winWidth = $(window).width();
+		var HDRatio = 16 / 9;
+		if (winWidth / winHeight > HDRatio) {
+			body.addClass('widerScreenRatio').removeClass('tallerScreenRatio');
+		} else if(winWidth / winHeight < HDRatio) {
+			body.addClass('tallerScreenRatio').removeClass('widerScreenRatio');
+		} else {
+			body.removeClass('widerScreenRatio tallerScreenRatio');
+		}
+	}
+	
+	function ovOpen(ov) {
+		console.log('clicked');
+		console.log(ov);
+		if (ov.parents('#ov_container').length < 1) {
+			ov.appendTo('#ov_container');
+		}
+		ov.addClass('active');
+		ovCheckHeight(ov);
+		$('html').addClass('ov-active');
+	}
+	function ovClose(ov,callback) {
+		ov.removeClass('active');
+		if ($('.ov.active').length < 1) {
+			$('html').removeClass('ov-active');
+		}
+		if (callback) { callback(); }
+	}
+	function ovCheckHeight(ov) {
+		var ovChild = ov.children().first();
+		if (ovChild.outerHeight() > ov.height()) {
+			ov.addClass('too-tall');
+		} else {
+			ov.removeClass('too-tall');
+		}
+	}
+	$('.OV_CLOSE').click(function(e) {
+		e.preventDefault();
+		ovClose($(this).closest('.OV'));
+	});
+	win.keyup(function(e) {
+		if (e.keyCode == 27 || e.which == 27) {
+			if (player) {
+				player.pauseVideo();
+				clearVideoIntervalCheck();
+			}
+			if ($('.OV.active').length > 0) {
+				$('.OV.active').find('.OV_CLOSE,.GALLERY_OV_CLOSE').click();
+			}
+		} else if ($('.GALLERY_OV.active').length > 0 && (e.keyCode == 37 || e.which == 37 || e.keyCode == 39 || e.which == 39)) {
+			var galSlider = $('.GALLERY_OV.active .GALLERY_SLIDER');
+			if (e.keyCode == 37 || e.which == 37) {
+				galSlider.slick('slickPrev');
+			} else if (e.keyCode == 39 || e.which == 39) {
+				galSlider.slick('slickNext');
+			} 
+		}
+	});
+	
+	if (isHome) {
+		screenRatioCheck();
+	}
+	
+	if (isVideoGallery) {
+		var catSelect = $('.CAT_SELECT');
+		var thumbsList = $('.VID_THUMBS_LIST');
+		function makeCatSelection() {
+			if (catSelect.val() == '') {
+				thumbsList.children('li').addClass('selected');
+			} else {
+				thumbsList.children('li').removeClass('selected').filter('.'+catSelect.val()).addClass('selected');
+			}
+		}
+		makeCatSelection();
+		catSelect.change(function() {
+			makeCatSelection();
+		});
+		var queryString = getQueryString();
+		if (queryString['filter']) {
+			var queryStringFilter = queryString['filter'];
+			if (queryStringFilter == 'all') {
+				catSelect.val('');
+				catSelect.change();
+			} else if (catSelect.find('option[value="cat-'+queryStringFilter+'"]').length > 0) {
+				catSelect.val('cat-'+queryStringFilter);
+				catSelect.change();
+			}
+		}
+	}
+	
+	if (isVideo) {
+		var player;
+		var videoUpdateInterval;
+		var nextVideoTriggered = false;
+		var nextPlayCountdownNumber = 15;
+		var playerContainer = $('.VID_PLAYER_OV');
+		var playerWrap = playerContainer.find('.VID_PLAYER_WRAPPER');
+		var vid_player_current_id = playerContainer.find('.VID_PLAYER_CURRENT_ID');
+		var vid_next_id = playerContainer.find('.VID_NEXT_ID');
+		var vid_next_page = playerContainer.find('.VID_NEXT_PAGE');
+		var vid_next_title = playerContainer.find('.VID_NEXT_TITLE');
+		var vid_next_thumb = playerContainer.find('.VID_NEXT_THUMB');
+		var vid_credits_timecode = playerContainer.find('.VID_CREDITS_TIMECODE');
+		var vid_episode_index = playerContainer.find('.VID_EPISODE_INDEX');
+		var next_play_countdown = $('.NEXT_PLAY_COUNTDOWN');
+		var closeButton = $('.VID_PLAYER_OV .OV_CLOSE');
+		function videoIntervalCheck() {
+			clearInterval(videoUpdateInterval);
+			if (vid_credits_timecode.val() != '' && vid_next_id.val()) {
+				videoUpdateInterval = setInterval(function () {
+					if (parseInt(player.getCurrentTime()) > parseInt(vid_credits_timecode.val())) {
+						if (!nextVideoTriggered) {
+							playerWrap.addClass('next-video-triggered');
+							if (document.exitFullscreen) {
+								document.exitFullscreen();
+							} else if (document.msExitFullscreen) {
+								document.msExitFullscreen();
+							} else if (document.mozCancelFullScreen) {
+								document.mozCancelFullScreen();
+							} else if (document.webkitExitFullscreen) {
+								document.webkitExitFullscreen();
+							}
+							nextVideoTriggered = true;
+							nextPlayCountdownNumber = parseInt(player.getDuration()) - parseInt(player.getCurrentTime()) -1 < 12 ? parseInt(player.getDuration()) - parseInt(player.getCurrentTime()) -1  : 12
+						} else {
+							nextPlayCountdownNumber = nextPlayCountdownNumber - 1;
+						}
+						next_play_countdown.text(nextPlayCountdownNumber);
+						if (nextPlayCountdownNumber <= 0) {
+							clearVideoIntervalCheck();
+							var nextPageHref = vid_next_page.filter(':first').attr('href');
+							if (isSingleShow && vid_episode_index.val() == 0 && typeof nextPageHref !== typeof undefined && nextPageHref != false) {
+								location.href = vid_next_page.attr('href');
+							} else {
+								playNextVideo();
+							}
+						}
+					}
+				}, 1000);
+			}
+		}
+		function clearVideoIntervalCheck() {
+			clearInterval(videoUpdateInterval);
+			playerWrap.removeClass('next-video-triggered');
+		}
+		YouTubeDeferred.done(function(YT) {
+			player = new YT.Player('video_player', {
+				width:1920,
+				height:1080,
+				events: {
+					onReady: function() {
+						if (isSingleShow) {
+							var queryString = getQueryString();
+							if (queryString['autoplay']) {
+								$('.TRIGGER_VIDEO').click();
+							}
+						}
+					},
+					onStateChange : function(e) {
+						if (e.data == 1 && !mobileDeviceType()) {
+							videoIntervalCheck() ;
+						} else {
+							clearVideoIntervalCheck();
+						}
+					}
+				},
+				playerVars: {
+					'rel':0,
+					'showinfo':0
+				}
+			});
+			
+		});
+		$('.VID_THUMBS_LIST a.VIDEO_PLAY, .TRIGGER_VIDEO').click(function(e) {
+			e.preventDefault();
+			vid_episode_index.val(0); // only the first episode on a series page uses this counter to go the next video
+			// all other episodes are just treated as single videos
+			playVideo($(this));
+		});
+		function playVideo(instigator) {
+			playerContainer.data('instigator',instigator);
+			clearVideoIntervalCheck();
+			var episodeIndex = parseInt(vid_episode_index.val());
+			nextVideoTriggered = false;
+			var videoID = instigator.attr('data-video-ID-'+episodeIndex);
+			if (videoID) {
+				playerContainer.addClass('active');
+				if (videoID != vid_player_current_id.val()) {
+					vid_player_current_id.val(videoID);
+					var nextVideoID = instigator.attr('data-video-ID-'+ (episodeIndex + 1));
+					if (instigator.attr('data-show-type') == 'series' && typeof nextVideoID !== typeof undefined && nextVideoID !== false) {
+						var nextTitle = instigator.attr('data-show-title') + ' - Episode '+ (episodeIndex + 2);
+						vid_next_id.val(nextVideoID);
+						vid_next_title.text(nextTitle);
+						vid_next_thumb.attr({
+							'src':instigator.attr('data-thumb-src-'+ (episodeIndex + 1)),
+							'alt':nextTitle
+						});
+						vid_episode_index.val(episodeIndex + 1);
+					} else {
+						vid_next_id.val(instigator.attr('data-next-ID'));
+						vid_next_title.text(instigator.attr('data-next-title'));
+						vid_next_thumb.attr({
+							'src':instigator.attr('data-next-thumb-src'),
+							'alt':instigator.attr('data-next-title')
+						});
+						vid_episode_index.val(0);
+					}
+					var nextPageAttr = instigator.attr('data-next-page');
+					if (typeof nextPageAttr !== typeof undefined && nextPageAttr != false) {
+						vid_next_page.attr('href', instigator.attr('data-next-page') + '?autoplay');
+					} else {
+						vid_next_page.attr('href', '');
+					}
+					vid_credits_timecode.val(instigator.attr('data-credits-timecode-'+(episodeIndex)));
+					//player.loadVideoById(videoID); // this will load and then immediately play the video
+					player.cueVideoById(videoID); // this will load the video but require the user to press the play button
+				}
+				player.playVideo();
+			}
+		}
+		closeButton.click(function() {
+			player.pauseVideo();
+			clearVideoIntervalCheck();
+		});
+		$('.CANCEL_AUTOPLAY').click(function(e) {
+			e.preventDefault();
+			clearVideoIntervalCheck();
+		});
+		vid_next_page.click(function(e) {
+			var nextHref = $(this).attr('href');
+			if (!isSingleShow || vid_episode_index.val() != 0 || typeof $(this).attr('href') === typeof undefined || $(this).attr('href') == false) {
+				e.preventDefault();
+				playNextVideo();
+			}
+		});
+		function playNextVideo() {
+			if (vid_episode_index.val() == 0) {
+				$('.VIDEO_PLAY').each(function() {
+					if ($(this).attr('data-video-ID-0') == vid_next_id.val()) {
+						$(this).click();
+						return false;
+					}
+				});
+			} else {
+				playVideo(playerContainer.data('instigator'));
+			}
 		}
 	}
 }); /* end of as page load scripts */
