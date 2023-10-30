@@ -44,9 +44,12 @@ html {
 		border-left:1px solid $border-color;
 	}
 }
+.sidebar {
+	margin-top:0;
+}
 .widget {
 	margin-bottom:$gutter1024;
-	padding-bottom:$gutter1024;
+	//padding-bottom:$gutter1024;
 }
 
 /******************************************
