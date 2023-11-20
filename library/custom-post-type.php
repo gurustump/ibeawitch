@@ -22,6 +22,110 @@ function bones_flush_rewrite_rules() {
 	flush_rewrite_rules();
 }
 
+
+// Person custom post type
+function person_custom_type() { 
+	// creating (registering) the custom type 
+	register_post_type( 'person', // (http://codex.wordpress.org/Function_Reference/register_post_type) 
+		// let's now add all the options for this post type
+		array( 'labels' => array(
+			'name' => __( 'People', 'bonestheme' ), 
+			'singular_name' => __( 'Person', 'bonestheme' ), 
+			'all_items' => __( 'All People', 'bonestheme' ),
+			'add_new' => __( 'Add New', 'bonestheme' ),
+			'add_new_item' => __( 'Add New Person', 'bonestheme' ),
+			'edit' => __( 'Edit', 'bonestheme' ),
+			'edit_item' => __( 'Edit Person', 'bonestheme' ),
+			'new_item' => __( 'New Person', 'bonestheme' ),
+			'view_item' => __( 'View Person', 'bonestheme' ),
+			'search_items' => __( 'Search Person', 'bonestheme' ),
+			'not_found' =>  __( 'Nothing found in the Database.', 'bonestheme' ),
+			'not_found_in_trash' => __( 'Nothing found in Trash', 'bonestheme' ),
+			'parent_item_colon' => ''
+			),
+			'description' => __( 'For people involved in shows: cast and crew', 'bonestheme' ),
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true,
+			'query_var' => true,
+			'menu_position' => 8,
+			'menu_icon' => 'dashicons-universal-access',
+			'rewrite'	=> array( 'slug' => 'people', 'with_front' => false ),
+			//'has_archive' => 'show',
+			'has_archive' => false,
+			'hierarchical' => false,
+				'capability_type' => 'post',
+			// the next one is important, it tells what's enabled in the post editor 
+			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
+		) // end of options 
+	); // end of register post type
+}
+add_action( 'init', 'person_custom_type');
+
+register_taxonomy( 'person_cat', 
+	array('person'),
+	array('hierarchical' => true,
+		'labels' => array(
+			'name' => __( 'Person Categories', 'bonestheme' ),
+			'singular_name' => __( 'Person Category', 'bonestheme' ),
+			'search_items' =>  __( 'Search Person Categories', 'bonestheme' ),
+			'all_items' => __( 'All Person Categories', 'bonestheme' ),
+			'parent_item' => __( 'Parent Person Category', 'bonestheme' ),
+			'parent_item_colon' => __( 'Parent Person Category:', 'bonestheme' ),
+			'edit_item' => __( 'Edit Person Category', 'bonestheme' ),
+			'update_item' => __( 'Update Person Category', 'bonestheme' ),
+			'add_new_item' => __( 'Add New Person Category', 'bonestheme' ),
+			'new_item_name' => __( 'New Person Category Name', 'bonestheme' )
+		),
+		'public' => false,
+		'show_admin_column' => true, 
+		'show_ui' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'person-catetory' ),
+	)
+);
+
+
+
+// Module custom post type
+function module_post_type() { 
+	register_post_type( 'module', 
+		array( 'labels' => array(
+			'name' => __( 'Modules', 'bonestheme' ),
+			'singular_name' => __( 'Module', 'bonestheme' ),
+			'all_items' => __( 'All Modules', 'bonestheme' ), 
+			'add_new' => __( 'Add New', 'bonestheme' ),
+			'add_new_item' => __( 'Add New Module', 'bonestheme' ),
+			'edit' => __( 'Edit', 'bonestheme' ),
+			'edit_item' => __( 'Edit Module', 'bonestheme' ),
+			'new_item' => __( 'New Module', 'bonestheme' ),
+			'view_item' => __( 'View Module', 'bonestheme' ),
+			'search_items' => __( 'Search Modules', 'bonestheme' ),
+			'not_found' =>  __( 'Nothing found in the Database.', 'bonestheme' ),
+			'not_found_in_trash' => __( 'Nothing found in Trash', 'bonestheme' ),
+			'parent_item_colon' => ''
+			),
+			'description' => __( 'This is the module custom post type, for random blocks of content to be used in various places throughout the theme', 'bonestheme' ),
+			'public' => false,
+			'publicly_queryable' => false,
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'query_var' => true,
+			'menu_position' => 8, 
+			'menu_icon' => 'dashicons-grid-view',
+			'rewrite'	=> array( 'slug' => 'module', 'with_front' => false ),
+			'has_archive' => 'module',
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'sticky')
+		) 
+	);
+}
+add_action( 'init', 'module_post_type');
+
+
+
 // let's create the function for the custom type
 function custom_post_example() { 
 	// creating (registering) the custom type 

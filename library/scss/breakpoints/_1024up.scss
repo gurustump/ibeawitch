@@ -51,6 +51,12 @@ html {
 	margin-bottom:$gutter1024;
 	//padding-bottom:$gutter1024;
 }
+body.single-post {
+	.content-secondary {
+		margin-top:0;
+		border-top:0;
+	}
+}
 
 /******************************************
 SPECIFIC PAGE STYLES

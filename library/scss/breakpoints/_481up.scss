@@ -40,3 +40,16 @@ body.home {
 	}
 }
 
+body.blog {
+	.content-primary {
+		.post {
+			.image-container {
+				img {
+					max-width:50%;
+					float:left;
+					margin-right:$gutter;
+				}
+			}
+		}
+	}
+}

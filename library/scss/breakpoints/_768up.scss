@@ -69,6 +69,24 @@ SIDEBARS & ASIDES
 	}
 }
 
+
+body.single-post {
+	.content-primary {
+		@include clearfix;
+		img.size-medium {
+			max-width:50%;
+			&.align-left {
+				float:left;
+				margin-right:$gutter;
+			}
+			&.align-right {
+				float:right;
+				margin-left:$gutter;
+			}
+		}
+	}
+}
+
 /******************************************
 SPECIFIC PAGE STYLES
 ******************************************/

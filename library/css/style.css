@@ -1015,7 +1015,7 @@ textarea,
   border: 0;
   width: 100%;
   max-width: 400px;
-  font-family: "Libre Baskerville", "Georgia", Cambria, Times New Roman, Times, serif;
+  font-family: "Fira Sans", "sans-serif";
   background-color: #eaedf2;
   -webkit-transition: background-color 0.24s ease-in-out;
   transition: background-color 0.24s ease-in-out;
@@ -1305,6 +1305,10 @@ html.mobile-nav-active body #inner-header {
 html.theme-dark {
   background: #000;
 }
+html.theme-dark.scrolled .header {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(rgba(0, 0, 0, 0.9)), to(rgba(0, 0, 0, 0)));
+  background-image: linear-gradient(#000, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
 html.theme-dark body {
   color: #fff;
   background-color: #000;
@@ -1359,10 +1363,17 @@ html.theme-dark .footer-links ul li a {
 html.theme-dark .footer-links ul li a:hover {
   color: #fff;
 }
+html.theme-dark .byline {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+html.theme-dark body.blog .content-secondary,
+html.theme-dark body.single-post .content-secondary {
+  border-color: rgba(255, 255, 255, 0.15);
+}
 
 body {
   height: 100%;
-  font-family: "Libre Baskerville", "Georgia", Cambria, Times New Roman, Times, serif;
+  font-family: "Fira Sans", "sans-serif";
   font-size: 16px;
   line-height: 1.4;
   color: #000;
@@ -1663,10 +1674,26 @@ POSTS & CONTENT STYLES
 
 /* post meta */
 .byline {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 8px;
+  padding-bottom: 8px;
   color: #999;
   font-style: italic;
   margin: 0;
 }
+body.single-post .entry-title {
+  padding-bottom: 8px;
+}
+body.single-post .content-primary {
+  padding-top: 16px;
+}
+body.single-post .content-secondary {
+  margin-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 16px;
+}
+
 /* entry content */
 .entry-content.has-content-secondary .content-primary {
   margin-bottom: 16px;
@@ -1825,7 +1852,7 @@ OVERLAY STYLES
   background: #000 url(../images/loading.gif) no-repeat 50% 6px;
   border-radius: 10px;
   color: #e0d7ce;
-  font-family: "Libre Baskerville", "Georgia", Cambria, Times New Roman, Times, serif;
+  font-family: "Fira Sans", "sans-serif";
   font-size: 0.8em;
   text-transform: uppercase;
   left: 50%;
@@ -2326,6 +2353,26 @@ body.home .sizzle-vid-container video {
   background: #000;
 }
 
+body.blog .content-primary .post {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 16px;
+  padding-top: 16px;
+}
+body.blog .content-primary .post .image-container img {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 8px;
+}
+body.blog .content-secondary {
+  margin-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 16px;
+}
+
+html.theme-dark body.blog .content-primary .post {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 /******************************************
 ADMIN BAR CUSTOMIZATION
 ******************************************/
@@ -2473,6 +2520,11 @@ tweeners.
   body.home .sizzle-vid-container .sizzle-logo {
     padding-top: 60%;
   }
+  body.blog .content-primary .post .image-container img {
+    max-width: 50%;
+    float: left;
+    margin-right: 16px;
+  }
 }
 /*********************
 TABLET & SMALLER LAPTOPS
@@ -2536,6 +2588,22 @@ you can add resource intensive styles.
     margin-top: 12px;
     padding-left: 16px;
   }
+  body.single-post .content-primary:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  body.single-post .content-primary img.size-medium {
+    max-width: 50%;
+  }
+  body.single-post .content-primary img.size-medium.align-left {
+    float: left;
+    margin-right: 16px;
+  }
+  body.single-post .content-primary img.size-medium.align-right {
+    float: right;
+    margin-left: 16px;
+  }
   /******************************************
   SPECIFIC PAGE STYLES
   ******************************************/
@@ -2598,6 +2666,10 @@ you can add resource intensive styles.
   }
   .widget {
     margin-bottom: 32px;
+  }
+  body.single-post .content-secondary {
+    margin-top: 0;
+    border-top: 0;
   }
   /******************************************
   SPECIFIC PAGE STYLES
@@ -2744,7 +2816,7 @@ you can add resource intensive styles.
     border-bottom: 0;
     text-decoration: none;
     cursor: pointer;
-    font-family: "Libre Baskerville", "Georgia", Cambria, Times New Roman, Times, serif;
+    font-family: "Fira Sans", "sans-serif";
   }
   .vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .next-play-countdown {
     font-weight: bold;
