@@ -30,9 +30,12 @@ $green:							#00b217;
 $blue:							#2980b9;
 $pink:							#f01d4f;
 $tan:							#eceee5;
+$light-tan:						#f5dcb3;
+$dark-tan:					#dca971;
 
 
 $link-color:					#0085db;
+$link-color:					$dark-tan;
 $link-hover:					darken($link-color, 9%);
 
 $border-color:					rgba($black,.1);
@@ -43,4 +46,14 @@ $disabled-gray:					#cfcfcf;
 // OTHER
 
 $transition-speed:				375ms;
-$gutter:						16px;
+
+$gutter:16px;
+$gutter768:24px;
+$gutter1024:32px;
+$logo-height:48px;
+$logo-heightScrolled:72px;
+$logo-height768:64px;
+$logo-height1240:96px;
+$logo-height1560:120px;
+$logo-top-padding:$gutter*.5;
+$footer-height:250px;

@@ -583,12 +583,12 @@ body#tinymce.wp-editor p {
             font-feature-settings: "liga", "dlig";*/
 }
 body#tinymce.wp-editor a, body#tinymce.wp-editor a:visited {
-  color: #0085db;
+  color: #dca971;
   /* on hover */
   /* on click */
 }
 body#tinymce.wp-editor a:hover, body#tinymce.wp-editor a:focus, body#tinymce.wp-editor a:visited:hover, body#tinymce.wp-editor a:visited:focus {
-  color: #0069ad;
+  color: #d3934c;
 }
 body#tinymce.wp-editor a:link, body#tinymce.wp-editor a:visited:link {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);

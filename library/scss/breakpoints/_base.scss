@@ -11,16 +11,6 @@ and will be used across all viewports.
 
 ******************************************************************/
 
-$gutter:16px;
-$gutter768:24px;
-$gutter1024:32px;
-$logo-height:48px;
-$logo-heightScrolled:72px;
-$logo-height768:64px;
-$logo-height1240:96px;
-$logo-height1560:120px;
-$logo-top-padding:$gutter*.5;
-$footer-height:250px;
 
 /*********************
 GENERAL STYLES
@@ -1153,6 +1143,17 @@ body.blog {
 			border-top:1px solid $border-color;
 			margin-top:$gutter;
 			padding-top:$gutter;
+			.entry-title {
+				a {
+					background-color:$dark-tan;
+					background-image:linear-gradient($light-tan,darken($dark-tan,10%));
+					background-size:100%;
+					-webkit-background-clip:text;
+					-webkit-text-fill-color:transparent;
+					-moz-background-clip:text;
+					-moz-text-fill-color:transparent;
+				}
+			}
 			.image-container {
 				img {
 					display:block;

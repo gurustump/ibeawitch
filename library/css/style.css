@@ -1424,13 +1424,13 @@ LAYOUT & GRID STYLES
 LINK STYLES
 *********************/
 a, a:visited {
-  color: #0085db;
+  color: #dca971;
   /* on hover */
   /* on click */
   /* mobile tap color */
 }
 a:hover, a:focus, a:visited:hover, a:visited:focus {
-  color: #0069ad;
+  color: #d3934c;
 }
 a:link, a:visited:link {
   /*
@@ -2357,6 +2357,16 @@ body.blog .content-primary .post {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 16px;
   padding-top: 16px;
+}
+body.blog .content-primary .post .entry-title a {
+  background-color: #dca971;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5dcb3), to(#d29048));
+  background-image: linear-gradient(#f5dcb3, #d29048);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
 }
 body.blog .content-primary .post .image-container img {
   display: block;

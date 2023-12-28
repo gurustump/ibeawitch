@@ -64,21 +64,24 @@ some nice typographical defaults
 more here: http://www.newnet-soft.com/blog/csstypography
 */
 p {
-  -ms-word-wrap: break-word;
-  word-break: break-word;
-  word-wrap: break-word;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  -webkit-hyphenate-before: 2;
-  -webkit-hyphenate-after: 3;
-  hyphenate-lines: 3;
+  /*  -ms-word-wrap: break-word;
+    word-break: break-word; //non-standart css for webkit
+    word-wrap: break-word;
+    // cleaning up the ragged lines and breaks
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+            hyphens: auto;
+    // sets a minimum number of characters before and after the break
+    -webkit-hyphenate-before: 2;
+     -webkit-hyphenate-after: 3;
+             hyphenate-lines: 3;
+  		   */
   /*  -webkit-font-feature-settings: "liga", "dlig";
-   -moz-font-feature-settings: "liga=1, dlig=1";
-      -ms-font-feature-settings: "liga", "dlig";
-       -o-font-feature-settings: "liga", "dlig";
-          font-feature-settings: "liga", "dlig";*/ }
+     -moz-font-feature-settings: "liga=1, dlig=1";
+        -ms-font-feature-settings: "liga", "dlig";
+         -o-font-feature-settings: "liga", "dlig";
+            font-feature-settings: "liga", "dlig";*/
+}
 
 /******************************************************************
 Site Name:
@@ -131,218 +134,331 @@ Author:
 
 Stylesheet: 481px and Up Stylesheet
 
-This stylesheet is loaded for larger devices. It's set to
-481px because at 480px it would load on a landscaped iPhone.
-This isn't ideal because then you would be loading all those
-extra styles on that same mobile connection.
-
-A word of warning. This size COULD be a larger mobile device,
-so you still want to keep it pretty light and simply expand
-upon your base.scss styles.
-
 ******************************************************************/
-/*
-IMPORTANT NOTE ABOUT SASS 3.3 & UP
-You can't use @extend within media queries
-anymore, so just be aware that if you drop
-them in here, they won't work.
-*/
-/*********************
-NAVIGATION STYLES
-*********************/
-/* .menu is clearfixed inside mixins.scss */
-.menu {
-  /* end .menu ul */ }
-  .menu ul {
-    /* end .menu ul li */
-    /* highlight current page */
-    /* end current highlighters */ }
-    .menu ul li {
-      /*
-				plan your menus and drop-downs wisely.
-				*/ }
-      .menu ul li a {
-        /*
-					you can use hover styles here even though this size
-					has the possibility of being a mobile device.
-					*/ }
-
-/* end .menu */
 /*********************
 POSTS & CONTENT STYLES
 *********************/
 /* entry content */
-.entry-content {
-  /* at this larger size, we can start to align images */ }
-  .entry-content .alignleft, .entry-content img.alignleft {
-    margin-right: 1.5em;
-    display: inline;
-    float: left; }
-  .entry-content .alignright, .entry-content img.alignright {
-    margin-left: 1.5em;
-    display: inline;
-    float: right; }
-  .entry-content .aligncenter, .entry-content img.aligncenter {
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
-    clear: both; }
+.entry-content .alignleft, .entry-content img.alignleft {
+  margin-right: 16px;
+  float: left;
+}
+.entry-content .alignright, .entry-content img.alignright {
+  margin-left: 16px;
+  float: right;
+}
+.entry-content .aligncenter, .entry-content img.aligncenter {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  clear: both;
+}
 
 /* end .entry-content */
-/*********************
-FOOTER STYLES
-*********************/
-/*
-check your menus here. do they look good?
-do they need tweaking?
-*/
-/* end .footer-links */
+/******************************************
+SPECIFIC PAGE STYLES
+******************************************/
+body.home .sizzle-vid-container .sizzle-logo {
+  padding-top: 60%;
+}
+
+body.blog .content-primary .post .image-container img {
+  max-width: 50%;
+  float: left;
+  margin-right: 16px;
+}
+
 /******************************************************************
 Site Name:
 Author:
 
-Stylesheet: Tablet & Small Desktop Stylesheet
-
-Here's where you can start getting into the good stuff.
-This size will work on iPads, other tablets, and desktops.
-So you can start working with more styles, background images,
-and other resources. You'll also notice the grid starts to
-come into play. Have fun!
+Stylesheet: Tablet Portrait
 
 ******************************************************************/
 /*********************
-GENERAL STYLES
-*********************/
-/*********************
 LAYOUT & GRID STYLES
 *********************/
+#container #content {
+  padding-top: 80px;
+}
+
 .wrap {
-  width: 760px; }
+  margin: 0 24px;
+}
 
 /*********************
 HEADER STYLES
 *********************/
+#logo a {
+  width: 153.6px;
+  height: 64px;
+}
+
 /*********************
 NAVIGATION STYLES
 *********************/
-.nav {
-  border: 0;
-  /* end .menu ul li */
-  /* highlight current page */
-  /* end current highlighters */ }
-  .nav ul {
-    background: #000;
-    margin-top: 0; }
-  .nav li {
-    float: left;
-    position: relative;
-    /*
-		plan your menus and drop-downs wisely.
-		*/
-    /* showing sub-menus */ }
-    .nav li a {
-      border-bottom: 0;
-      /*
-			you can use hover styles here even though this size
-			has the possibility of being a mobile device.
-			*/ }
-      .nav li a:hover, .nav li a:focus {
-        color: #fff;
-        text-decoration: underline; }
-    .nav li ul.sub-menu,
-    .nav li ul.children {
-      margin-top: 0;
-      border: 1px solid #ccc;
-      border-top: 0;
-      position: absolute;
-      visibility: hidden;
-      z-index: 8999;
-      /* highlight sub-menu current page */ }
-      .nav li ul.sub-menu li,
-      .nav li ul.children li {
-        /*
-				if you need to go deeper, go nuts
-				just remember deeper menus suck
-				for usability. k, bai.
-				*/ }
-        .nav li ul.sub-menu li a,
-        .nav li ul.children li a {
-          padding-left: 10px;
-          border-right: 0;
-          display: block;
-          width: 180px;
-          border-bottom: 1px solid #ccc; }
-        .nav li ul.sub-menu li:last-child a,
-        .nav li ul.children li:last-child a {
-          border-bottom: 0; }
-        .nav li ul.sub-menu li ul,
-        .nav li ul.children li ul {
-          top: 0;
-          left: 100%; }
-    .nav li:hover > ul {
-      top: auto;
-      visibility: visible; }
+.main-menu li a {
+  height: 64px;
+  line-height: 64px;
+}
 
-/* end .nav */
+.trigger-nav {
+  height: 64px;
+  width: 64px;
+}
+
 /*********************
 SIDEBARS & ASIDES
 *********************/
 .sidebar {
-  margin-top: 2.2em; }
+  margin-top: 2.2em;
+}
 
 .widgettitle {
   border-bottom: 2px solid #444;
-  margin-bottom: 0.75em; }
+  margin-bottom: 0.75em;
+}
 
 .widget {
-  padding: 0 10px;
-  margin: 2.2em 0; }
-  .widget ul li {
-    margin-bottom: 0.75em;
-    /* deep nesting */ }
-    .widget ul li ul {
-      margin-top: 0.75em;
-      padding-left: 1em; }
+  padding: 0 8px;
+  margin: 32px 0;
+}
+.widget ul li {
+  margin-bottom: 16px;
+}
+.widget ul li ul {
+  margin-top: 12px;
+  padding-left: 16px;
+}
 
-/* links widget */
-/* meta widget */
-/* pages widget */
-/* recent-posts widget */
-/* archives widget */
-/* tag-cloud widget */
-/* calendar widget */
-/* category widget */
-/* recent-comments widget */
-/* search widget */
-/* text widget */
-/*********************
-FOOTER STYLES
-*********************/
-/*
-you'll probably need to do quite a bit
-of overriding here if you styled them for
-mobile. Make sure to double check these!
-*/
-.footer-links ul li {
-  /*
-			be careful with the depth of your menus.
-			it's very rare to have multi-depth menus in
-			the footer.
-			*/ }
+body.single-post .content-primary:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+body.single-post .content-primary img.size-medium {
+  max-width: 50%;
+}
+body.single-post .content-primary img.size-medium.align-left {
+  float: left;
+  margin-right: 16px;
+}
+body.single-post .content-primary img.size-medium.align-right {
+  float: right;
+  margin-left: 16px;
+}
 
-/* end .footer-links */
+/******************************************
+SPECIFIC PAGE STYLES
+******************************************/
+body.home .sizzle-vid-container .sizzle-logo {
+  padding-top: 50%;
+}
+
 /******************************************************************
 Site Name:
 Author:
 
-Stylesheet: Desktop Stylsheet
-
-This is the desktop size. It's larger than an iPad so it will only
-be seen on the Desktop.
+Stylesheet: Small Desktop Stylsheet
 
 ******************************************************************/
-.wrap {
-  width: 1040px; }
+html.theme-dark .main-nav-container {
+  background: transparent;
+}
+html.theme-dark .main-menu {
+  background: transparent;
+}
+html.theme-dark .main-menu li a {
+  border: 0;
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+.main-nav-container {
+  float: right;
+  position: static;
+  background: none;
+  width: auto;
+  height: auto;
+  padding-top: 8px;
+}
+
+.main-menu {
+  border: 0;
+  padding-top: 0;
+  overflow: visible;
+  background: none;
+  /* end .menu ul li */
+  /* highlight current page */
+  /* end current highlighters */
+}
+.main-menu li {
+  float: left;
+  position: relative;
+  /* showing sub-menus */
+}
+.main-menu li.menu-item.menu-item-has-children > a:hover {
+  border-color: transparent;
+}
+.main-menu li:last-child ul.sub-menu, .main-menu li:last-child ul.children {
+  right: 0;
+}
+.main-menu li a {
+  border-bottom: 1px solid transparent;
+  border-color: transparent;
+  -webkit-transition: height 375ms, line-height 375ms, background-color 375ms;
+  transition: height 375ms, line-height 375ms, background-color 375ms;
+  background: none;
+  font-size: 17px;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 12px;
+}
+.main-menu li a:hover {
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.03);
+}
+.main-menu li li a {
+  height: 55px;
+  line-height: 55px;
+}
+.main-menu li ul.sub-menu,
+.main-menu li ul.children {
+  margin-top: -30px;
+  border-top: 0;
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  height: 0;
+  overflow: hidden;
+  z-index: 8999;
+  /* highlight sub-menu current page */
+}
+.main-menu li ul.sub-menu li a,
+.main-menu li ul.children li a {
+  padding-left: 10px;
+  border-right: 0;
+  display: block;
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.main-menu li ul.sub-menu li ul,
+.main-menu li ul.children li ul {
+  top: 0;
+  left: 100%;
+}
+.main-menu li:hover > ul {
+  top: auto;
+  opacity: 1;
+  height: auto;
+}
+/* end .nav */
+.trigger-nav {
+  display: none;
+}
+
+/******************************************************************
+OVERLAY STYLES
+******************************************************************/
+.vid-player-container .vid-player-wrapper.next-video-triggered {
+  color: #fff;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered > iframe {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  max-width: 48%;
+  max-height: 48%;
+  margin-top: 66px;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next {
+  display: block;
+  width: 48%;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next p, .vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next h3, .vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions {
+  padding: 0 20px;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next p {
+  margin: 0;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next h3 {
+  margin-bottom: 0.5em;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next a {
+  border-bottom: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Fira Sans", "sans-serif";
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .next-play-countdown {
+  font-weight: bold;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .video-thumb {
+  display: block;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .video-thumb img {
+  width: 100%;
+  display: block;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions {
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions a {
+  font-size: 1.3em;
+  line-height: 1em;
+  position: relative;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions .cancel {
+  float: right;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions .play-now {
+  float: left;
+  padding-right: 20px;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions .play-now:after {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  float: right;
+  margin: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: relative;
+  top: 50%;
+  border-left: 12px solid #fff;
+}
+.vid-player-container .vid-player-wrapper.next-video-triggered .vid-playing-next .actions .play-now:after {
+  position: absolute;
+  right: 0;
+}
+
+.ov.gallery-ov-container .gallery-nav {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.ov.gallery-ov-container .gallery-nav .slick-arrow {
+  width: 50%;
+  height: 100%;
+  text-indent: -9999px;
+}
+.ov.gallery-ov-container .gallery-nav .gallery-prev {
+  float: left;
+  cursor: url(../images/ic-pointer-prev.png), pointer;
+}
+.ov.gallery-ov-container .gallery-nav .gallery-next {
+  float: right;
+  cursor: url(../images/ic-pointer-next.png), pointer;
+}
 
 /*
 you can call the larger styles if you want, but there's really no need
