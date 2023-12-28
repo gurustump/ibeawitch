@@ -2358,6 +2358,17 @@ body.blog .content-primary .post {
   margin-top: 16px;
   padding-top: 16px;
 }
+body.blog .content-primary .post .image-container img {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 8px;
+}
+body.blog .content-primary .post header {
+  margin-bottom: 8px;
+}
+body.blog .content-primary .post .entry-title {
+  margin-bottom: 4px;
+}
 body.blog .content-primary .post .entry-title a {
   background-color: #dca971;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f5dcb3), to(#d29048));
@@ -2367,11 +2378,6 @@ body.blog .content-primary .post .entry-title a {
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
-}
-body.blog .content-primary .post .image-container img {
-  display: block;
-  max-width: 100%;
-  margin-bottom: 8px;
 }
 body.blog .content-secondary {
   margin-top: 16px;

@@ -1143,7 +1143,18 @@ body.blog {
 			border-top:1px solid $border-color;
 			margin-top:$gutter;
 			padding-top:$gutter;
+			.image-container {
+				img {
+					display:block;
+					max-width:100%;
+					margin-bottom:calc($gutter/2);
+				}
+			}
+			header {
+				margin-bottom:calc($gutter/2);
+			}
 			.entry-title {
+				margin-bottom:calc($gutter/4);
 				a {
 					background-color:$dark-tan;
 					background-image:linear-gradient($light-tan,darken($dark-tan,10%));
@@ -1152,13 +1163,6 @@ body.blog {
 					-webkit-text-fill-color:transparent;
 					-moz-background-clip:text;
 					-moz-text-fill-color:transparent;
-				}
-			}
-			.image-container {
-				img {
-					display:block;
-					max-width:100%;
-					margin-bottom:calc($gutter/2);
 				}
 			}
 		}
