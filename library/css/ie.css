@@ -162,7 +162,7 @@ body.home .sizzle-vid-container .sizzle-logo {
   padding-top: 60%;
 }
 
-body.blog .content-primary .post .image-container img {
+body.blog .content-primary .post .image-container img, body.page-template-page-screenings .content-primary .post .image-container img {
   max-width: 50%;
   float: left;
   margin-right: 16px;

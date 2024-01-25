@@ -16,7 +16,7 @@
 									<?php if (has_post_thumbnail()) { ?>
 									<div class="image-container">
 										<a href="<?php the_permalink() ?>">
-											<img src="<?php the_post_thumbnail_url('thumb'); ?>" alt="" />
+											<img src="<?php the_post_thumbnail_url('large'); ?>" alt="" />
 										</a>
 									</div>
 									<?php } ?>

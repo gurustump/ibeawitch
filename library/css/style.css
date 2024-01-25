@@ -1367,7 +1367,7 @@ html.theme-dark .byline {
   border-color: rgba(255, 255, 255, 0.15);
 }
 html.theme-dark body.blog .content-secondary,
-html.theme-dark body.single-post .content-secondary {
+html.theme-dark body.single-post body.page-template-page-screenings .content-secondary {
   border-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -2353,23 +2353,23 @@ body.home .sizzle-vid-container video {
   background: #000;
 }
 
-body.blog .content-primary .post {
+body.blog .content-primary .post, body.page-template-page-screenings .content-primary .post {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 16px;
   padding-top: 16px;
 }
-body.blog .content-primary .post .image-container img {
+body.blog .content-primary .post .image-container img, body.page-template-page-screenings .content-primary .post .image-container img {
   display: block;
   max-width: 100%;
   margin-bottom: 8px;
 }
-body.blog .content-primary .post header {
+body.blog .content-primary .post header, body.page-template-page-screenings .content-primary .post header {
   margin-bottom: 8px;
 }
-body.blog .content-primary .post .entry-title {
+body.blog .content-primary .post .entry-title, body.page-template-page-screenings .content-primary .post .entry-title {
   margin-bottom: 4px;
 }
-body.blog .content-primary .post .entry-title a {
+body.blog .content-primary .post .entry-title a, body.page-template-page-screenings .content-primary .post .entry-title a {
   background-color: #dca971;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f5dcb3), to(#d29048));
   background-image: linear-gradient(#f5dcb3, #d29048);
@@ -2379,14 +2379,50 @@ body.blog .content-primary .post .entry-title a {
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
-body.blog .content-secondary {
+body.blog .content-primary .post .byline, body.page-template-page-screenings .content-primary .post .byline {
+  font-size: 0.75em;
+}
+body.blog .content-primary .category-screening, body.page-template-page-screenings .content-primary .category-screening {
+  background-color: rgba(220, 169, 113, 0.25);
+}
+body.blog .content-primary .category-screening:before, body.page-template-page-screenings .content-primary .category-screening:before {
+  content: "screening";
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  margin-top: -16px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #f5dcb3;
+  letter-spacing: 6px;
+}
+body.blog .content-primary .category-screening .entry-title, body.blog .content-primary .category-screening section, body.page-template-page-screenings .content-primary .category-screening .entry-title, body.page-template-page-screenings .content-primary .category-screening section {
+  margin-right: 16px;
+  margin-left: 16px;
+}
+body.blog .content-primary .category-screening .byline, body.page-template-page-screenings .content-primary .category-screening .byline {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+body.blog .content-primary .category-screening header, body.page-template-page-screenings .content-primary .category-screening header {
+  margin-top: 5.3333333333px;
+}
+body.blog .content-secondary, body.page-template-page-screenings .content-secondary {
   margin-top: 16px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 16px;
 }
 
-html.theme-dark body.blog .content-primary .post {
+html.theme-dark body.blog .content-primary .post, html.theme-dark body.page-template-page-screenings .content-primary .post {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+html.theme-dark body.blog .content-primary .category-screening, html.theme-dark body.page-template-page-screenings .content-primary .category-screening {
+  background-color: rgba(220, 169, 113, 0.25);
+}
+html.theme-dark body.blog .content-primary .category-screening:before, html.theme-dark body.page-template-page-screenings .content-primary .category-screening:before {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /******************************************
@@ -2536,7 +2572,7 @@ tweeners.
   body.home .sizzle-vid-container .sizzle-logo {
     padding-top: 60%;
   }
-  body.blog .content-primary .post .image-container img {
+  body.blog .content-primary .post .image-container img, body.page-template-page-screenings .content-primary .post .image-container img {
     max-width: 50%;
     float: left;
     margin-right: 16px;
