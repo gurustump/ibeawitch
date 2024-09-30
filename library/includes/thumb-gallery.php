@@ -1,7 +1,7 @@
 						<div class="image-gallery IMAGE_GALLERY" id="gallery_<?php echo $galleryID; ?>">
-							<?php if ($showMeta['_guru_show_gallery_heading'][0]) { ?>
+							<?php /* if ($showMeta['_guru_show_gallery_heading'][0]) { ?>
 							<h2><?php echo $showMeta['_guru_show_gallery_heading'][0]; ?></h2>
-							<?php } ?>
+							<?php } */ ?>
 							<?php 
 							if ($galleryImageMeta) { ?>
 							<pre style="color:violet;display:none;">
@@ -14,15 +14,21 @@
 									$galleryIndex = 0;
 									foreach($galleryImageMeta as $key => $image) { 
 										$thumb = wp_get_attachment_image_src($key,'thumbnail');
+										$full = wp_get_attachment_image_src($key,'full');
+										
+										$filename = basename(get_attached_file($key));
 										?>
-										<li class="gallery-item GALLERY_ITEM" data-image-index="<?php echo $galleryIndex; ?>">
-											<img src="<?php echo $thumb[0]; ?>" />
-											<span class='item-content'>
-												<span class='view-item'>
-													<span class="text-label">View Image</span>
-													<?php //echoSVG('icMag'); ?>
+										<li>
+											<div>
+												<img src="<?php echo $thumb[0]; ?>" />
+												<span class='item-content'>
+													<span class='view-item GALLERY_ITEM' data-image-index="<?php echo $galleryIndex; ?>">
+														<span class="text-label">View Image</span>
+														<?php //echoSVG('icMag'); ?>
+													</span>
 												</span>
-											</span>
+												<a class="item-link" href="<?php echo $full[0]; ?>" download="<?php echo $filename; ?>"><span class="view-item"><span class="text-label">Download</span></span></a>
+											</div>
 										</li>
 									<?php $galleryIndex++;
 									} ?>

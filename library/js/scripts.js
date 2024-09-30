@@ -240,6 +240,54 @@ jQuery(document).ready(function($) {
 		}
 	});
 	
+	if ($('.IMAGE_GALLERY').length > 0) {
+		$('.IMAGE_GALLERY').addClass('ready');
+		body.on('click', '.GALLERY_ITEM', function(e) {
+			e.preventDefault();
+			var thisThumb = $(this);
+			if (thisThumb.hasClass('ACCORDION_OPEN')) {
+				thisAccordionItem = thisThumb.closest('.ACCORDION_ITEM');
+				if (thisAccordionItem.hasClass('accordion-closed')) {
+					thisAccordionItem.removeClass('accordion-closed');
+					$(html,body).animate({
+						scrollTop:thisAccordionItem.find('.equipment-item').first().offset().top - 76
+					}, 300);
+					return false;
+				}
+			}
+			var gal = thisThumb.closest('.IMAGE_GALLERY');
+			var galOv = $('#'+gal.attr('id').replace('gallery','gallery_ov'));
+			var galSlider = galOv.find('.GALLERY_SLIDER');
+			ovOpen(galOv);
+			galSlider.slick({
+				prevArrow:'<a class="gallery-prev">Previous</a>',
+				nextArrow:'<a class="gallery-next">Next</a>',
+				appendArrows:galOv.find('.GALLERY_NAV')
+			});
+			var thisImgIndex = thisThumb[0].hasAttribute('data-image-id') ? galSlider.find('.id-'+thisThumb.attr('data-image-id')).attr('data-slick-index') : thisThumb.attr('data-image-index');
+			galSlider.slick('slickGoTo',thisImgIndex,true);
+		});
+		$('.GALLERY_OV_CLOSE').click(function(e) {
+			e.preventDefault();
+			thisOv = $(this).closest('.OV');
+			ovClose(thisOv,function() {
+				thisOv.find('.GALLERY_SLIDER').slick('unslick');
+			});
+		});
+	}
+	
+	if ($('.SIMPLE_ACCORDION').length > 0) {
+		$('.ACCORDION_TOGGLE').click(function() {
+			$(this).closest('.ACCORDION_ITEM').toggleClass('accordion-closed');
+		});
+	}
+	if ($('.LAUNCH_CONTACT').length > 0) {
+		$('.LAUNCH_CONTACT').click(function(e) {
+			e.preventDefault();
+			ovOpen($('.CONTACT_FORM_OV'));
+		});
+	}
+	
 	if (isHome) {
 		screenRatioCheck();
 	}

@@ -35,4 +35,10 @@ function toggleMetaboxes($) {
 	} else {
 		$('.cmb-row.page-home-admin').hide()
 	}
+	
+	if ($('#page_template').val() == 'page-multi-gallery.php') {
+		$('.cmb-row.page-multi-gallery-admin').show()
+	} else {
+		$('.cmb-row.page-multi-gallery-admin').hide()
+	}
 }

@@ -29,15 +29,39 @@
 									// the content (pretty self explanatory huh)
 									the_content();
 								?>
+									<?php $screenings_query = new WP_Query(array(
+										'posts_per_page'=>-1,
+										'category_name'=>'screening',
+									)); ?>
 								
-								<?php $screenings = get_posts(array(
+									<ul class="">
+									<?php while ( $screenings_query->have_posts() ) : $screenings_query->the_post(); ?>
+										<li>
+											<article id="post-<?php the_ID() ?>" class="post post-<?php the_ID(); ?> category-screening" role="article">
+												<?php if (has_post_thumbnail(get_the_ID())) { ?>
+												<div class="image-container">
+													<a href="<?php echo the_permalink() ?>">
+														<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(),'large'); ?>" alt="" />
+													</a>
+												</div>
+												<?php } ?>
+												<header class="article-header">
+													<h2 class="entry-title"><a href="<?php echo the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+												</header>
+												<section class="entry-content cf">
+													<?php the_excerpt(); ?>
+												</section>
+											</article>
+										</li>
+									<?php endwhile; wp_reset_postdata(); ?>
+									<?php /* $screenings = get_posts(array(
 										'posts_per_page'=>-1,
 										'category_name'=>'screening',
 									));
 									if (count($screenings) > 0) { ?>
 									<ul class="">
 										<?php foreach ($screenings as $screening) { ?>
-										<li>										
+										<li>
 											<article id="post-<?php echo $screening->ID ?>" class="post post-<?php echo $screening->ID; ?> category-screening" role="article">
 												<?php if (has_post_thumbnail($screening->ID)) { ?>
 												<div class="image-container">
@@ -56,7 +80,7 @@
 										</li>
 										<?php } ?>
 									</ul>
-									<?php } ?>
+									<?php } */ ?>
 								</div>
 								<?php if ($hasContentSecondary) { ?>
 								<div class="content-secondary">

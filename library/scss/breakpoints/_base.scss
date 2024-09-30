@@ -753,6 +753,147 @@ OVERLAY STYLES
 }
 
 /******************************************************************
+GALLERY STYLES
+******************************************************************/
+body.single .image-gallery {
+	clear:both;
+	opacity:0;
+	transition:opacity $transition-speed;
+	&.ready {
+		opacity:1;
+	}
+}
+.thumb-index, .video-thumb-index {
+	.thumb-index-list {
+		& > li {
+			position:relative;
+			& > img {
+				width:100%;
+				height:auto;
+				display:block;
+				margin:0;
+			}
+		}
+	}
+}
+.thumb-index {
+	.thumb-index-list {
+		margin-right:-1%;
+		@include clearfix;
+		& > li {
+			float:left;
+			width:49%;
+			padding-bottom:49%;
+			margin:0 1% 1% 0;
+			cursor:pointer;
+			& > div {
+				position:absolute;
+				top:0;
+				left:0;
+				height:100%;
+				width:100%;
+			}
+			img {
+				width:100%;
+				margin:0;
+			}
+			.item-content, .item-link {
+				position:absolute;
+				left:0;
+				top:0;
+				/*padding:$gutter 0;*/
+				@include box-sizing;
+				height:50%;
+				width:100%;
+				overflow:hidden;
+				@include transition(background-color, .5s);
+				& > * {
+					@include box-sizing;
+					position:relative;
+					top:40%;
+					opacity:0;
+					@include transition(top .375s, opacity .375s);
+					&.item-head, &.item-body {
+						padding:0 $gutter;
+						display:block;
+						width:100%;
+					}
+					&.item-head {
+						font-family:$headingfont;
+						font-weight:700;
+						letter-spacing:1px;
+						text-transform:uppercase;
+						font-size:18px;
+						line-height:1.2em;
+					}
+					&.item-body {
+						@include transition-delay(.1s);
+						display:none;
+					}
+					&.btn {
+						@include transition(left .5s ease-in-out .2s, background-color .35s);
+						display:none;
+						position:absolute;
+						bottom:$gutter*.5;
+						margin:0 $gutter;
+					}
+					&.view-item {
+						color:$white;
+						text-transform:uppercase;
+						display:block;
+						font-size:.75em;
+						width:100%;
+						text-align:center;
+						@include v-center;
+						top:60%;
+						.text-label {
+							display:block;
+							padding-bottom:$gutter*4.5;
+							background:url(../images/ic-mag.svg) no-repeat 50% 65%;
+							background-size:auto $gutter*3;
+						}
+					}
+					&.gallery-caption {
+						font-size:.8em;
+						color:$white;
+						background:rgba($black, .5);
+						padding:$gutter;
+						position:absolute;
+						top:auto !important;
+						bottom:0;
+						width:100%;
+						@include box-sizing;
+					}
+				}
+			}
+			.item-link {
+				top:50%;
+				border-top:1px dotted transparent;
+				text-decoration:none;
+				outline:none;
+				& > span {
+					display:block;
+					margin:0 auto;
+					
+				}
+			}
+			&:hover {
+				.item-content, .item-link {
+					background-color:rgba($black, .8);
+					& > * {
+						top:50%;
+						opacity:1;
+					}
+				}
+				.item-link {
+					border-color:rgba(255,255,255,.2);
+				}
+			}
+		}
+	}
+}
+
+/******************************************************************
 PAGE NAVI STYLES
 ******************************************************************/
 .pagination,
